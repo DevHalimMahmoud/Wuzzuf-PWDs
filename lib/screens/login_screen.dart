@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wuzzuf_pwd/screens/main_screen.dart';
+import 'package:wuzzuf_pwd/screens/registration_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -127,7 +129,12 @@ class _ScreenContentState extends State<ScreenContent> {
                   ),
                   elevation: MaterialStateProperty.all(8),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ReregistrationScreen()));
+                },
                 child: const Text('No Account? Sign Up'),
               ),
             ),
@@ -154,7 +161,7 @@ class _ScreenContentState extends State<ScreenContent> {
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1);
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
+                MaterialPageRoute(builder: (context) => const MainScreen()));
             print('User is signed in!');
           }
         });
