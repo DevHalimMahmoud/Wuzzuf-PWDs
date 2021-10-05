@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -148,7 +149,6 @@ class _ScreenContentState extends State<ScreenContent> {
     if (email.isNotEmpty && password.isNotEmpty) {
       FirebaseUser user;
       String errorMessage;
-
       try {
         AuthResult result = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
@@ -162,7 +162,6 @@ class _ScreenContentState extends State<ScreenContent> {
                 timeInSecForIosWeb: 1);
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const MainScreen()));
-            print('User is signed in!');
           }
         });
       } catch (error) {
