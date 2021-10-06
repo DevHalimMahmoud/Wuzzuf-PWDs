@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wuzzuf_pwd/screens/main_screen.dart';
+import 'package:wuzzuf_pwd/screens/registration_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -127,7 +130,12 @@ class _ScreenContentState extends State<ScreenContent> {
                   ),
                   elevation: MaterialStateProperty.all(8),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ReregistrationScreen()));
+                },
                 child: const Text('No Account? Sign Up'),
               ),
             ),
@@ -141,7 +149,6 @@ class _ScreenContentState extends State<ScreenContent> {
     if (email.isNotEmpty && password.isNotEmpty) {
       FirebaseUser user;
       String errorMessage;
-
       try {
         AuthResult result = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
@@ -154,8 +161,7 @@ class _ScreenContentState extends State<ScreenContent> {
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1);
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
-            print('User is signed in!');
+                MaterialPageRoute(builder: (context) => const MainScreen()));
           }
         });
       } catch (error) {
