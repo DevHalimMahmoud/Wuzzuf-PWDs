@@ -28,9 +28,9 @@ class _ApplicationsState extends State<Applications> {
     setState(() {});
   }
 
-  var jobsReady = false;
+  var jobsReady = true;
   Map jobtemplet = {};
-  var jobscount;
+  var jobscount = 0;
   getJobData(var jobid, var ind) async {
     var templet =
         await Firestore.instance.collection('job').document(jobid).get();
@@ -45,7 +45,9 @@ class _ApplicationsState extends State<Applications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Applications'),),
+        appBar: AppBar(
+          title: const Text('Applications'),
+        ),
         body: ready
             ? applicationsStreamBuilder()
             : const Center(child: CircularProgressIndicator()));
@@ -58,35 +60,41 @@ class _ApplicationsState extends State<Applications> {
             .where('user_id', isEqualTo: userid)
             .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(child: Text('you have no applications'));
-          }
-          if (jobscount != snapshot.data.documents.length) {
-            jobsReady = false;
-            jobscount = snapshot.data.documents.length;
-            jobtemplet.clear();
-          }
-          if (jobsReady == false) {
-            for (int i = 0; i < jobscount; i++) {
-              var jobid = snapshot.data.documents[i]['job_id'];
-              getJobData(jobid, i);
+          if (snapshot.hasData) {
+            if (jobscount != snapshot.data.documents.length) {
+              jobsReady = false;
+              jobscount = snapshot.data.documents.length;
+              jobtemplet.clear();
             }
-          }
+            if (jobscount == 0) jobsReady = true;
+            if (jobsReady == false) {
+              for (int i = 0; i < jobscount; i++) {
+                var jobid = snapshot.data.documents[i]['job_id'];
+                getJobData(jobid, i);
+              }
+            }
 
-          return jobsReady
-              ? jobsListViewBuilder(snapshot)
-              : const Center(child: CircularProgressIndicator());
+            return jobsReady
+                ? jobsListViewBuilder(snapshot)
+                : const Center(child: CircularProgressIndicator());
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
         });
   }
 
-  ListView jobsListViewBuilder(AsyncSnapshot<QuerySnapshot> snapshot) {
-    return ListView.builder(
-        itemCount: snapshot.data.documents.length,
-        itemBuilder: (BuildContext context, int index) {
-          return applicationCard(
-              job: jobtemplet[index],
-              status: snapshot.data.documents[index]['status']);
-        });
+  Widget jobsListViewBuilder(AsyncSnapshot<QuerySnapshot> snapshot) {
+    if (snapshot.data.documents.isEmpty) {
+      return const Center(child: Text('you have no applications'));
+    } else {
+      return ListView.builder(
+          itemCount: snapshot.data.documents.length,
+          itemBuilder: (BuildContext context, int index) {
+            return applicationCard(
+                job: jobtemplet[index],
+                status: snapshot.data.documents[index]['status']);
+          });
+    }
   }
 
   Widget applicationCard({var job, String status}) {

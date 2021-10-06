@@ -11,17 +11,19 @@ class ViewApplication extends StatelessWidget {
     size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            mainRowBuilder(title: 'Organization', details: job['organization']),
-            mainRowBuilder(title: 'Address', details: job['address']),
-            mainRowBuilder(title: 'Department', details: job['department']),
-            mainRowBuilder(title: 'Title', details: job['title']),
-            mainRowBuilder(title: 'Desability', details: job['disability']),
-            mainRowBuilder(title: 'Description', details: job['description']),
-            mainRowBuilder(title: 'Application Status', details: status),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              mainRowBuilder(title: 'Organization', details: job['organization']),
+              mainRowBuilder(title: 'Address', details: job['address']),
+              mainRowBuilder(title: 'Department', details: job['department']),
+              mainRowBuilder(title: 'Title', details: job['title']),
+              mainRowBuilder(title: 'Desability', details: job['disability']),
+              mainRowBuilder(title: 'Description', details: job['description']),
+              mainRowBuilder(title: 'Application Status', details: status),
+            ],
+          ),
         ));
   }
 
