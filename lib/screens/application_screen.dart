@@ -15,7 +15,6 @@ class _ApplicationsState extends State<Applications> {
   @override
   void initState() {
     super.initState();
-    getUserid();
   }
 
   bool ready = false;
@@ -29,13 +28,13 @@ class _ApplicationsState extends State<Applications> {
   }
 
   var jobsReady = true;
-  Map jobtemplet = {};
+  Map jobs = {};
   var jobscount = 0;
   getJobData(var jobid, var ind) async {
     var templet =
         await Firestore.instance.collection('job').document(jobid).get();
-    jobtemplet[ind] = templet.data;
-    if (jobtemplet.length == jobscount) {
+    jobs[ind] = templet.data;
+    if (jobs.length == jobscount) {
       jobsReady = true;
       setState(() {});
     }
@@ -64,7 +63,7 @@ class _ApplicationsState extends State<Applications> {
             if (jobscount != snapshot.data.documents.length) {
               jobsReady = false;
               jobscount = snapshot.data.documents.length;
-              jobtemplet.clear();
+              jobs.clear();
             }
             if (jobscount == 0) jobsReady = true;
             if (jobsReady == false) {
@@ -91,7 +90,7 @@ class _ApplicationsState extends State<Applications> {
           itemCount: snapshot.data.documents.length,
           itemBuilder: (BuildContext context, int index) {
             return applicationCard(
-                job: jobtemplet[index],
+                job: jobs[index],
                 status: snapshot.data.documents[index]['status']);
           });
     }
@@ -124,5 +123,10 @@ class _ApplicationsState extends State<Applications> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
