@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wuzzuf_pwd/screens/jobs_screen/SearchScreen.dart';
 import 'package:wuzzuf_pwd/screens/post_job_screen.dart';
 import 'package:wuzzuf_pwd/screens/profile_screen.dart';
 
@@ -21,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _widgetOptions = <Widget>[
     const Home(),
     const Applications(),
-    const Jobs(),
+    SearchScreen(),
     const Profile(),
     const PostJob(),
   ];
@@ -35,7 +36,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
