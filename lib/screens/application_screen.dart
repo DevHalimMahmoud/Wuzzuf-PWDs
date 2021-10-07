@@ -29,7 +29,7 @@ class _ApplicationsState extends State<Applications> {
   }
 
   var jobsReady = true;
-  Map jobs = {};
+  var jobs = {};
   var jobscount = 0;
   getJobData(var jobid, var ind) async {
     var templet = await Firestore.instance
@@ -37,7 +37,7 @@ class _ApplicationsState extends State<Applications> {
         .where('id', isEqualTo: jobid)
         .getDocuments();
     if (templet.documents.isNotEmpty) {
-      jobs[ind] = templet.documents[0];
+      jobs[ind] = templet.documents[0].data;
     } else {
       jobs[ind] = null;
     }

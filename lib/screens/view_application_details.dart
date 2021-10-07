@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ViewApplication extends StatelessWidget {
-  final Map<String, dynamic> job;
-  final String status;
-  ViewApplication({this.job, this.status});
+  var job;
+  var status;
+  ViewApplication({Key key, this.job, this.status}) : super(key: key);
   Size size;
 
   @override
