@@ -226,15 +226,21 @@ class _ReregistrationScreenState extends State<ReregistrationScreen> {
                     elevation: MaterialStateProperty.all(8),
                   ),
                   onPressed: () {
-                    if (notEmpty()) {
-                      signUp();
-                    } else {
+                    if (Empty()) {
                       Fluttertoast.showToast(
                           msg:
                               "Please fill all data and enter correct email and password",
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.CENTER,
                           timeInSecForIosWeb: 1);
+                    } else if (_passwordcontroller.text.length >= 8) {
+                      Fluttertoast.showToast(
+                          msg: "Please password with more than 8 character's",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1);
+                    } else {
+                      signUp();
                     }
                   },
                   child: const Text('Sign Up'),
@@ -258,13 +264,13 @@ class _ReregistrationScreenState extends State<ReregistrationScreen> {
     );
   }
 
-  bool notEmpty() {
-    if (_firstnamecontroller.text.isNotEmpty &&
-        _lastnamecontroller.text.isNotEmpty &&
-        _agecontroller.text.isNotEmpty &&
-        _phonecontroller.text.isNotEmpty &&
-        disability.isNotEmpty &&
-        gender.isNotEmpty) {
+  bool Empty() {
+    if (_firstnamecontroller.text.isEmpty &&
+        _lastnamecontroller.text.isEmpty &&
+        _agecontroller.text.isEmpty &&
+        _phonecontroller.text.isEmpty &&
+        disability.isEmpty &&
+        gender.isEmpty) {
       return true;
     } else {
       return false;
