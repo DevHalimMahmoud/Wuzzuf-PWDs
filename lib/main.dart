@@ -47,15 +47,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.initState();
     Timer(const Duration(seconds: 3), () {
       FirebaseAuth.instance.onAuthStateChanged.listen((user) {
-        if (user == null) {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()));
-        } else {
+        //if (user == null) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
+        /*} else {
 
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const MainScreen()));
           print('User is signed in!');
-        }
+        }*/
       });
     });
   }

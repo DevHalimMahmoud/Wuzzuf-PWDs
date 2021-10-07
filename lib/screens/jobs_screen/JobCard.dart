@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:wuzzuf_pwd/constants/Constants.dart';
 import 'package:wuzzuf_pwd/models/apiJop.dart';
+import 'package:wuzzuf_pwd/screens/JobDetailsScreen/DetailScreen.dart';
 
 class JobCard extends StatelessWidget {
   final JobsResult data;
@@ -25,8 +26,8 @@ class JobCard extends StatelessWidget {
         openColor: kSilverColor,
         openElevation: 0,
         openBuilder: (context, action) {
-          /* return DetailScreen(
-              data, index, fireListSize, Applied, fireApi, UserId);*/
+          return DetailScreen(
+              data, index, fireListSize, Applied, fireApi, UserId);
         },
         closedColor: Colors.transparent,
         closedElevation: 0,

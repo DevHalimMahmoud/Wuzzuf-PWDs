@@ -6,7 +6,6 @@ import 'package:wuzzuf_pwd/screens/profile_screen.dart';
 
 import 'application_screen.dart';
 import 'home_screen.dart';
-import 'jobs_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key key}) : super(key: key);
