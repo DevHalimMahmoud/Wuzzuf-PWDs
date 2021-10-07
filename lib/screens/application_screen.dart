@@ -32,14 +32,19 @@ class _ApplicationsState extends State<Applications> {
   Map jobs = {};
   var jobscount = 0;
   getJobData(var jobid, var ind) async {
-    var templet =
-        await Firestore.instance.collection('job').document(jobid).get();
-    jobs[ind] = templet.data;
+    var templet = await Firestore.instance
+        .collection('job')
+        .where('id', isEqualTo: jobid)
+        .getDocuments();
+    if (templet.documents.isNotEmpty) {
+      jobs[ind] = templet.documents[0];
+    } else {
+      jobs[ind] = null;
+    }
     if (jobs.length == jobscount) {
       jobsReady = true;
       setState(() {});
     }
-    ;
   }
 
   @override
@@ -90,9 +95,20 @@ class _ApplicationsState extends State<Applications> {
       return ListView.builder(
           itemCount: snapshot.data.documents.length,
           itemBuilder: (BuildContext context, int index) {
-            return applicationCard(
-                job: jobs[index],
-                status: snapshot.data.documents[index]['status']);
+            if (jobs[index] != null) {
+              return applicationCard(
+                  job: jobs[index],
+                  status: snapshot.data.documents[index]['status']);
+            } else {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: const Text('job not found')),
+              );
+            }
           });
     }
   }
