@@ -38,43 +38,46 @@ class _HomeState extends State<Home> {
     }
   }
 
-  final String welcomeText = '''We're so happy you're here!
-Wish you great job opportunities''';
+  final String welcomeText = "We're so happy you're here!";
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
+      backgroundColor: Colors.white,
+
       body: ready
           ? Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Welcome, $userName',
-                      style: const TextStyle(fontSize: 32)),
-                  SizedBox(
-                    height: size.height * 0.03,
+
+                  Center(
+                    child: Image.network(
+                        "https://storage.googleapis.com/glaze-ecom.appspot.com/images/D2Tz8-aFi/thumbs/watermark.png"),
                   ),
-                  Text(
-                    welcomeText,
-                    style: const TextStyle(fontSize: 18),
+                  Center(
+                    child: Text('Welcome, $userName',
+                        style: const TextStyle(fontSize: 32)),
                   ),
-                  // SizedBox(
-                  //   height: size.height * 0.03,
-                  // ),
-                  // SizedBox(
-                  //   height: size.height*0.4,
-                  //   child: const FittedBox(
-                  //     child: Icon(
-                  //        Icons.local_florist
-                  //     ),
-                  //   ),
-                  // )
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                    child: Center(
+                      child: Text(
+                        welcomeText,
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Image.network(
+                        "https://storage.googleapis.com/glaze-ecom.appspot.com/images/dsvImtjXe/thumbs/232.png"),
+                  ),
+                  const Center(
+                    child: Text("Start Searching For Your Dream Job!",
+                        style: TextStyle(fontSize: 20)),
+                  ),
                 ],
               ),
             )

@@ -10,6 +10,15 @@ class PostJob extends StatefulWidget {
 class _PostJobState extends State<PostJob> {
   @override
   Widget build(BuildContext context) {
-    return const Text("Post Job");
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:  [
+          const Text("This Page is Under Development"),
+          Image.network("https://storage.googleapis.com/glaze-ecom.appspot.com/images/P2uSA0D_6/thumbs/232.png"),
+        ],
+      ),
+    );
   }
 }
