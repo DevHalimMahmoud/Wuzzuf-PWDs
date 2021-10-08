@@ -33,9 +33,11 @@ class _RecomendedJobsState extends State<RecomendedJobs> {
           initialPage: _cardIndex,
           enlargeCenterPage: true,
           onPageChanged: (index, reason) {
-            setState(() {
-              _cardIndex = index;
-            });
+            if (mounted) {
+              setState(() {
+                _cardIndex = index;
+              });
+            }
           },
         ),
         itemCount: widget.data.length,

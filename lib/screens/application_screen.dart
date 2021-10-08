@@ -26,7 +26,9 @@ class _ApplicationsState extends State<Applications> {
     final FirebaseUser user = await auth.currentUser();
     userid = user.uid;
     ready = true;
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   var jobsReady = true;
@@ -45,7 +47,9 @@ class _ApplicationsState extends State<Applications> {
     }
     if (jobs.length == jobscount) {
       jobsReady = true;
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 

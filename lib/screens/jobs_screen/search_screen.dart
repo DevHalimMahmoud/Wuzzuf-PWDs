@@ -66,9 +66,11 @@ class _SearchScreenState extends State<SearchScreen> {
       }
     }
     jobsListForDisplay = jobsList;
+    if(mounted){
     setState(() {
       isLoading = false;
     });
+    }
   }
 
   @override
@@ -138,6 +140,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                             keyboardType: TextInputType.text,
                                             onChanged: (text) {
                                               text = text.toLowerCase();
+                                              if(mounted){
                                               setState(() {
                                                 jobsListForDisplay =
                                                     jobsList.where((element) {
@@ -146,6 +149,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   return title.contains(text);
                                                 }).toList();
                                               });
+                                              }
                                             },
                                           ),
                                         ),

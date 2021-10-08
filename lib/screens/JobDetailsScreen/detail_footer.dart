@@ -78,9 +78,11 @@ class _DetailFooterState extends State<DetailFooter> {
                         status: "pending",
                         userId: widget.userId);
                     FirebaseJobService().upLoadApplication(model);
-                    setState(() {
-                      widget.applied[widget.data.jobId] = true;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        widget.applied[widget.data.jobId] = true;
+                      });
+                    }
                   }
                 },
                 child: Container(
