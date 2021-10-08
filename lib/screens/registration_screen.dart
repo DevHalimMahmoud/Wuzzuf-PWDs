@@ -245,7 +245,7 @@ class _ReregistrationScreenState extends State<ReregistrationScreen> {
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.CENTER,
                           timeInSecForIosWeb: 1);
-                    } else if (_passwordcontroller.text.length >= 8) {
+                    } else if (_passwordcontroller.text.length < 8) {
                       Fluttertoast.showToast(
                           msg: "Please password with more than 8 character's",
                           toastLength: Toast.LENGTH_SHORT,
