@@ -50,26 +50,26 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.file_copy_outlined),
             label: 'Applications',
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.cases_sharp),
             label: 'Jobs',
-            backgroundColor: Colors.pink,
+            backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
-            backgroundColor: Colors.deepPurple,
+            backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_to_photos),
             label: 'Post Job',
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.blue,
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+            backgroundColor: Colors.blue,
         onTap: _onItemTapped,
       ),
     );
