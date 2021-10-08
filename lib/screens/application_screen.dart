@@ -20,6 +20,7 @@ class _ApplicationsState extends State<Applications> {
 
   bool ready = false;
   String userid;
+
   getUserid() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user = await auth.currentUser();
@@ -31,6 +32,7 @@ class _ApplicationsState extends State<Applications> {
   var jobsReady = true;
   var jobs = {};
   var jobscount = 0;
+
   getJobData(var jobid, var ind) async {
     var templet = await Firestore.instance
         .collection('job')

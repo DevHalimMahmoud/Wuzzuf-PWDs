@@ -53,16 +53,16 @@ class Chip {
   List<Option> options;
 
   factory Chip.fromJson(Map<String, dynamic> json) => Chip(
-        type: json["type"] == null ? null : json["type"],
-        param: json["param"] == null ? null : json["param"],
+        type: json["type"],
+        param: json["param"],
         options: json["options"] == null
             ? null
             : List<Option>.from(json["options"].map((x) => Option.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "type": type == null ? null : type,
-        "param": param == null ? null : param,
+        "type": type,
+        "param": param,
         "options": options == null
             ? null
             : List<dynamic>.from(options.map((x) => x.toJson())),
@@ -79,13 +79,13 @@ class Option {
   String value;
 
   factory Option.fromJson(Map<String, dynamic> json) => Option(
-        text: json["text"] == null ? null : json["text"],
-        value: json["value"] == null ? null : json["value"],
+        text: json["text"],
+        value: json["value"],
       );
 
   Map<String, dynamic> toJson() => {
-        "text": text == null ? null : text,
-        "value": value == null ? null : value,
+        "text": text,
+        "value": value,
       };
 }
 
@@ -113,34 +113,34 @@ class JobsResult {
   String jobId;
 
   factory JobsResult.fromJson(Map<String, dynamic> json) => JobsResult(
-        title: json["title"] == null ? null : json["title"],
-        companyName: json["company_name"] == null ? null : json["company_name"],
-        location: json["location"] == null ? null : json["location"],
-        via: json["via"] == null ? null : json["via"],
-        description: json["description"] == null ? null : json["description"],
-        thumbnail: json["thumbnail"] == null ? null : json["thumbnail"],
+        title: json["title"],
+        companyName: json["company_name"],
+        location: json["location"],
+        via: json["via"],
+        description: json["description"],
+        thumbnail: json["thumbnail"],
         extensions: json["extensions"] == null
             ? null
             : List<String>.from(json["extensions"].map((x) => x)),
         detectedExtensions: json["detected_extensions"] == null
             ? null
             : DetectedExtensions.fromJson(json["detected_extensions"]),
-        jobId: json["job_id"] == null ? null : json["job_id"],
+        jobId: json["job_id"],
       );
 
   Map<String, dynamic> toJson() => {
-        "title": title == null ? null : title,
-        "company_name": companyName == null ? null : companyName,
-        "location": location == null ? null : location,
-        "via": via == null ? null : via,
-        "description": description == null ? null : description,
-        "thumbnail": thumbnail == null ? null : thumbnail,
+        "title": title,
+        "company_name": companyName,
+        "location": location,
+        "via": via,
+        "description": description,
+        "thumbnail": thumbnail,
         "extensions": extensions == null
             ? null
             : List<dynamic>.from(extensions.map((x) => x)),
         "detected_extensions":
             detectedExtensions == null ? null : detectedExtensions.toJson(),
-        "job_id": jobId == null ? null : jobId,
+        "job_id": jobId,
       };
 }
 
@@ -155,23 +155,23 @@ class DetectedExtensions {
 
   factory DetectedExtensions.fromJson(Map<String, dynamic> json) =>
       DetectedExtensions(
-        postedAt: json["posted_at"] == null ? null : json["posted_at"],
+        postedAt: json["posted_at"],
         scheduleType: json["schedule_type"] == null
             ? null
             : scheduleTypeValues.map[json["schedule_type"]],
       );
 
   Map<String, dynamic> toJson() => {
-        "posted_at": postedAt == null ? null : postedAt,
+        "posted_at": postedAt,
         "schedule_type": scheduleType == null
             ? null
             : scheduleTypeValues.reverse[scheduleType],
       };
 }
 
-enum ScheduleType { FULL_TIME }
+enum ScheduleType { fullTime }
 
-final scheduleTypeValues = EnumValues({"Full-time": ScheduleType.FULL_TIME});
+final scheduleTypeValues = EnumValues({"Full-time": ScheduleType.fullTime});
 
 class SearchMetadata {
   SearchMetadata({
@@ -195,30 +195,30 @@ class SearchMetadata {
   double totalTimeTaken;
 
   factory SearchMetadata.fromJson(Map<String, dynamic> json) => SearchMetadata(
-        id: json["id"] == null ? null : json["id"],
-        status: json["status"] == null ? null : json["status"],
+        id: json["id"],
+        status: json["status"],
         jsonEndpoint:
-            json["json_endpoint"] == null ? null : json["json_endpoint"],
-        createdAt: json["created_at"] == null ? null : json["created_at"],
-        processedAt: json["processed_at"] == null ? null : json["processed_at"],
+            json["json_endpoint"],
+        createdAt: json["created_at"],
+        processedAt: json["processed_at"],
         googleJobsUrl:
-            json["google_jobs_url"] == null ? null : json["google_jobs_url"],
+            json["google_jobs_url"],
         rawHtmlFile:
-            json["raw_html_file"] == null ? null : json["raw_html_file"],
+            json["raw_html_file"],
         totalTimeTaken: json["total_time_taken"] == null
             ? null
             : json["total_time_taken"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "status": status == null ? null : status,
-        "json_endpoint": jsonEndpoint == null ? null : jsonEndpoint,
-        "created_at": createdAt == null ? null : createdAt,
-        "processed_at": processedAt == null ? null : processedAt,
-        "google_jobs_url": googleJobsUrl == null ? null : googleJobsUrl,
-        "raw_html_file": rawHtmlFile == null ? null : rawHtmlFile,
-        "total_time_taken": totalTimeTaken == null ? null : totalTimeTaken,
+        "id": id,
+        "status": status,
+        "json_endpoint": jsonEndpoint,
+        "created_at": createdAt,
+        "processed_at": processedAt,
+        "google_jobs_url": googleJobsUrl,
+        "raw_html_file": rawHtmlFile,
+        "total_time_taken": totalTimeTaken,
       };
 }
 
@@ -237,18 +237,18 @@ class SearchParameters {
 
   factory SearchParameters.fromJson(Map<String, dynamic> json) =>
       SearchParameters(
-        q: json["q"] == null ? null : json["q"],
-        engine: json["engine"] == null ? null : json["engine"],
+        q: json["q"],
+        engine: json["engine"],
         googleDomain:
-            json["google_domain"] == null ? null : json["google_domain"],
-        hl: json["hl"] == null ? null : json["hl"],
+            json["google_domain"],
+        hl: json["hl"],
       );
 
   Map<String, dynamic> toJson() => {
-        "q": q == null ? null : q,
-        "engine": engine == null ? null : engine,
-        "google_domain": googleDomain == null ? null : googleDomain,
-        "hl": hl == null ? null : hl,
+        "q": q,
+        "engine": engine,
+        "google_domain": googleDomain,
+        "hl": hl,
       };
 }
 
@@ -259,9 +259,7 @@ class EnumValues<T> {
   EnumValues(this.map);
 
   Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
+    reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }
 }

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:wuzzuf_pwd/constants/Constants.dart';
-import 'package:wuzzuf_pwd/models/apiJop.dart';
-import 'package:wuzzuf_pwd/models/firebaseJobModel.dart';
-import 'package:wuzzuf_pwd/screens/jobs_screen/RecomendedJobs.dart';
-import 'package:wuzzuf_pwd/service/ApplicationsService.dart';
-import 'package:wuzzuf_pwd/service/FirebaseJobService.dart';
-import 'package:wuzzuf_pwd/service/JobService.dart';
-import 'package:wuzzuf_pwd/utils/Utils.dart';
+import 'package:wuzzuf_pwd/constants/constants.dart';
+import 'package:wuzzuf_pwd/models/api_jop.dart';
+import 'package:wuzzuf_pwd/models/firebase_job_model.dart';
+import 'package:wuzzuf_pwd/screens/jobs_screen/recomended_jobs.dart';
+import 'package:wuzzuf_pwd/service/applications_service.dart';
+import 'package:wuzzuf_pwd/service/firebase_job_service.dart';
+import 'package:wuzzuf_pwd/service/job_service.dart';
+import 'package:wuzzuf_pwd/utils/utils.dart';
 
-import 'JobCard.dart';
+import 'job_card.dart';
 
 class SearchScreen extends StatefulWidget {
+  const SearchScreen({Key key}) : super(key: key);
+
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -18,45 +20,48 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   List<JobsResult> jobsList = [],
       jobsListForDisplay = [],
-      RecomendedJobsList = [];
-  Map<String, bool> Applied = new Map();
-  Map<String, bool> fireApi = new Map();
+      recomendedJobsList = [];
+  Map<String, bool> applied = {};
+  Map<String, bool> fireApi = {};
   bool isLoading = true;
   int fireListSize;
-  String Userid = "";
-  ApplicationsService applicationsService = new ApplicationsService();
+  String userId = "";
+  ApplicationsService applicationsService = ApplicationsService();
+
   getjobList() async {
     await applicationsService.getApplications();
-    Userid = applicationsService.UserId;
-    RecomendedJobsList = await JobService().getJobRecom();
-    if (RecomendedJobsList != null)
-      RecomendedJobsList = applicationsService.FilterList(RecomendedJobsList);
-    List<firebaseJobModel> firelis =
+    userId = applicationsService.userId;
+    recomendedJobsList = await JobService().getJobRecom();
+    if (recomendedJobsList != null) {
+      recomendedJobsList = applicationsService.filterList(recomendedJobsList);
+    }
+    List<FirebaseJobModel> firelis =
         await FirebaseJobService(fireApi: fireApi).getData();
     if (firelis != null) {
-      jobsList.addAll(applicationsService.FilterList(
+      jobsList.addAll(applicationsService.filterList(
           Utils().convertLitsFireToApi(firelis)));
       fireListSize = jobsList.length;
     }
-    List<JobsResult> ApiJiobs = await JobService().getJob();
-    if (ApiJiobs != null) {
-      ApiJiobs = applicationsService.FilterList(ApiJiobs);
-      for (int i = 0; i < ApiJiobs.length; i++) {
-        if (fireApi[ApiJiobs[i].jobId] == null) jobsList.add(ApiJiobs[i]);
+    List<JobsResult> apiJobs = await JobService().getJob();
+    if (apiJobs != null) {
+      apiJobs = applicationsService.filterList(apiJobs);
+      for (int i = 0; i < apiJobs.length; i++) {
+        if (fireApi[apiJobs[i].jobId] == null) jobsList.add(apiJobs[i]);
       }
     }
-    if (RecomendedJobsList != null) {
-      RecomendedJobsList = applicationsService.FilterList(RecomendedJobsList);
-      for (int i = 0; i < RecomendedJobsList.length; i++) {
-        if (fireApi[RecomendedJobsList[i].jobId] == null)
-          jobsList.add(RecomendedJobsList[i]);
+    if (recomendedJobsList != null) {
+      recomendedJobsList = applicationsService.filterList(recomendedJobsList);
+      for (int i = 0; i < recomendedJobsList.length; i++) {
+        if (fireApi[recomendedJobsList[i].jobId] == null) {
+          jobsList.add(recomendedJobsList[i]);
+        }
       }
     }
     for (int i = 0; i < jobsList.length; i++) {
-      Applied[jobsList[i].jobId] = false;
-      if (i < fireListSize)
+      applied[jobsList[i].jobId] = false;
+      if (i < fireListSize) {
         fireApi[jobsList[i].jobId] = true;
-      else {
+      } else {
         fireApi[jobsList[i].jobId] = false;
       }
     }
@@ -79,16 +84,16 @@ class _SearchScreenState extends State<SearchScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: isLoading
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: kSpacingUnit * 3),
+                  const SizedBox(height: kSpacingUnit * 3),
                   Flexible(
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: kSilverColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(kSpacingUnit * 5),
@@ -100,9 +105,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            SizedBox(height: kSpacingUnit * 5),
+                            const SizedBox(height: kSpacingUnit * 5),
                             Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: kSpacingUnit * 3),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +121,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                             borderRadius: BorderRadius.circular(
                                                 kSpacingUnit * 3),
                                           ),
-                                          margin: EdgeInsets.all(10.0),
+                                          margin: const EdgeInsets.all(10.0),
                                           child: TextField(
                                             decoration: InputDecoration(
                                               hintText: "Search Job",
@@ -125,7 +130,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   kBodyTextStyle.copyWith(
                                                 color: kSecondaryTextColor,
                                               ),
-                                              prefixIcon: Icon(
+                                              prefixIcon: const Icon(
                                                 Icons.search,
                                                 color: Colors.grey,
                                               ),
@@ -145,15 +150,15 @@ class _SearchScreenState extends State<SearchScreen> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: kSpacingUnit * 2),
+                                      const SizedBox(width: kSpacingUnit * 2),
                                     ],
                                   ),
-                                  SizedBox(height: kSpacingUnit * 2),
+                                  const SizedBox(height: kSpacingUnit * 2),
                                 ],
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: kSpacingUnit * 4),
                               child: Row(
                                 mainAxisAlignment:
@@ -168,18 +173,18 @@ class _SearchScreenState extends State<SearchScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
-                            RecomendedJobsList != null
-                                ? RecomendedJobs(RecomendedJobsList,
-                                    fireListSize, Applied, fireApi, Userid)
-                                : Center(
+                            recomendedJobsList != null
+                                ? RecomendedJobs(recomendedJobsList,
+                                    fireListSize, applied, fireApi, userId)
+                                : const Center(
                                     child: Text("Not Found"),
                                   ),
-                            SizedBox(height: kSpacingUnit * 2),
+                            const SizedBox(height: kSpacingUnit * 2),
                             Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: kSpacingUnit * 4),
                               child: Text(
                                 '${jobsListForDisplay.length} Jop Found',
@@ -196,7 +201,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     .entries
                                     .map(
                                       (item) => Container(
-                                        margin: EdgeInsets.symmetric(
+                                        margin: const EdgeInsets.symmetric(
                                                 horizontal: kSpacingUnit * 3)
                                             .copyWith(
                                           top: item.key == 0
@@ -208,9 +213,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                             item.value,
                                             item.key,
                                             fireListSize,
-                                            Applied,
+                                            applied,
                                             fireApi,
-                                            Userid),
+                                            userId),
                                       ),
                                     )
                                     .toList(),

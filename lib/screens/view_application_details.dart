@@ -1,10 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class ViewApplication extends StatelessWidget {
-  var job;
-  var status;
-  ViewApplication({Key key, this.job, this.status}) : super(key: key);
+class ViewApplication extends StatefulWidget {
+  final job;
+  final status;
+  const ViewApplication({Key key, this.job, this.status}) : super(key: key);
+
+  @override
+  State<ViewApplication> createState() => _ViewApplicationState();
+}
+
+class _ViewApplicationState extends State<ViewApplication> {
   Size size;
 
   @override
@@ -16,13 +21,13 @@ class ViewApplication extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              mainRowBuilder(title: 'Organization', details: job['organization']),
-              mainRowBuilder(title: 'Address', details: job['address']),
-              mainRowBuilder(title: 'Department', details: job['department']),
-              mainRowBuilder(title: 'Title', details: job['title']),
-              mainRowBuilder(title: 'Desability', details: job['disability']),
-              mainRowBuilder(title: 'Description', details: job['description']),
-              mainRowBuilder(title: 'Application Status', details: status),
+              mainRowBuilder(title: 'Organization', details: widget.job['organization']),
+              mainRowBuilder(title: 'Address', details: widget.job['address']),
+              mainRowBuilder(title: 'Department', details: widget.job['department']),
+              mainRowBuilder(title: 'Title', details: widget.job['title']),
+              mainRowBuilder(title: 'Desability', details: widget.job['disability']),
+              mainRowBuilder(title: 'Description', details: widget.job['description']),
+              mainRowBuilder(title: 'Application Status', details: widget.status),
             ],
           ),
         ));
@@ -41,7 +46,7 @@ class ViewApplication extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(width: size.width, child: Text('$details')),
+          SizedBox(width: size.width, child: Text(details)),
         ],
       ),
     );

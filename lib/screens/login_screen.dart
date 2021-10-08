@@ -83,7 +83,7 @@ class _ScreenContentState extends State<ScreenContent> {
                   elevation: MaterialStateProperty.all(8),
                 ),
                 onPressed: () {
-                  Login(mailController.text, passwordController.text);
+                  logIn(mailController.text, passwordController.text);
                 },
                 child: const Text('Login'),
               ),
@@ -145,14 +145,14 @@ class _ScreenContentState extends State<ScreenContent> {
     );
   }
 
-  Future<String> Login(String email, String password) async {
+  void logIn(String email, String password) async {
     if (email.isNotEmpty && password.isNotEmpty) {
-      FirebaseUser user;
+
       String errorMessage;
       try {
-        AuthResult result = await FirebaseAuth.instance
+        await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
-        user = result.user;
+
         FirebaseAuth.instance.onAuthStateChanged.listen((user) {
           if (user != null) {
             Fluttertoast.showToast(

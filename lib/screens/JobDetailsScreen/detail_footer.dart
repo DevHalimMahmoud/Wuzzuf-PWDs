@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:wuzzuf_pwd/constants/Constants.dart';
-import 'package:wuzzuf_pwd/models/apiJop.dart';
-import 'package:wuzzuf_pwd/models/firebaseApplicationModel.dart';
-import 'package:wuzzuf_pwd/service/FirebaseJobService.dart';
-import 'package:wuzzuf_pwd/utils/Utils.dart';
+import 'package:wuzzuf_pwd/constants/constants.dart';
+import 'package:wuzzuf_pwd/models/api_jop.dart';
+import 'package:wuzzuf_pwd/models/firebase_application_model.dart';
+import 'package:wuzzuf_pwd/service/firebase_job_service.dart';
+import 'package:wuzzuf_pwd/utils/utils.dart';
 
 class DetailFooter extends StatefulWidget {
   final JobsResult data;
   final int index;
   final int fireListSize;
-  final Map<String, bool> Applied;
+  final Map<String, bool> applied;
   final Map<String, bool> fireApi;
-  final String UserId;
-  DetailFooter(this.data, this.index, this.fireListSize, this.Applied,
-      this.fireApi, this.UserId);
+  final String userId;
+
+  const DetailFooter(this.data, this.index, this.fireListSize, this.applied,
+      this.fireApi, this.userId,
+      {Key key})
+      : super(key: key);
+
   @override
   _DetailFooterState createState() => _DetailFooterState();
 }
@@ -22,13 +26,13 @@ class DetailFooter extends StatefulWidget {
 class _DetailFooterState extends State<DetailFooter> {
   @override
   Widget build(BuildContext context) {
-    String ApplyText;
+    String applyText;
     Color color;
-    if (widget.Applied[widget.data.jobId] == false) {
-      ApplyText = 'Apply Now';
+    if (widget.applied[widget.data.jobId] == false) {
+      applyText = 'Apply Now';
       color = Colors.blue;
     } else {
-      ApplyText = 'Applied';
+      applyText = 'Applied';
       color = Colors.grey;
     }
     return Positioned(
@@ -36,8 +40,8 @@ class _DetailFooterState extends State<DetailFooter> {
       right: 0,
       bottom: 0,
       child: Container(
-        padding: EdgeInsets.all(kSpacingUnit * 2),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(kSpacingUnit * 2),
+        decoration: const BoxDecoration(
           color: Colors.white,
           boxShadow: [kFooterShadow],
         ),
@@ -59,24 +63,23 @@ class _DetailFooterState extends State<DetailFooter> {
                 ),
               ),
             ),
-            SizedBox(width: kSpacingUnit * 2),
+            const SizedBox(width: kSpacingUnit * 2),
             Expanded(
               child: InkWell(
                 onTap: () {
-                  if (widget.Applied[widget.data.jobId] == false) {
+                  if (widget.applied[widget.data.jobId] == false) {
                     if (!widget.fireApi[widget.data.jobId]) {
                       FirebaseJobService().upLoad(
                           Utils().convertObjectApiToFirebase(widget.data));
                     }
-                    firebaseApplicationModel model =
-                        new firebaseApplicationModel(
-                            cv_link: "CV_link.com",
-                            job_id: widget.data.jobId,
-                            status: "pending",
-                            user_id: widget.UserId);
+                    FirebaseApplicationModel model = FirebaseApplicationModel(
+                        cvLink: "CV_link.com",
+                        jobId: widget.data.jobId,
+                        status: "pending",
+                        userId: widget.userId);
                     FirebaseJobService().upLoadApplication(model);
                     setState(() {
-                      widget.Applied[widget.data.jobId] = true;
+                      widget.applied[widget.data.jobId] = true;
                     });
                   }
                 },
@@ -88,7 +91,7 @@ class _DetailFooterState extends State<DetailFooter> {
                   ),
                   child: Center(
                     child: Text(
-                      ApplyText,
+                      applyText,
                       style: kTitleTextStyle.copyWith(
                         color: Colors.white,
                       ),

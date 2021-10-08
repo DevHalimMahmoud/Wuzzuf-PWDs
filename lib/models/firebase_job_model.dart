@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 
-class firebaseJobModel {
-  String Id;
+class FirebaseJobModel {
+  String id;
   String address;
   String department;
   String description;
   String disability;
   String organization;
   String title;
-  firebaseJobModel({
-    @required this.Id,
+
+  FirebaseJobModel({
+    @required this.id,
     @required this.address,
     @required this.department,
     @required this.description,
@@ -17,8 +18,9 @@ class firebaseJobModel {
     @required this.organization,
     @required this.title,
   });
-  firebaseJobModel.fromMap(Map<dynamic, dynamic> data)
-      : Id = data['id'] ?? '',
+
+  FirebaseJobModel.fromMap(Map<dynamic, dynamic> data)
+      : id = data['id'] ?? '',
         address = data['address'] ?? '',
         department = data['department'] ?? '',
         description = data['description'] ?? '',
@@ -28,7 +30,7 @@ class firebaseJobModel {
 
   Map<String, dynamic> toMap() {
     return {
-      "id": Id,
+      "id": id,
       "address": address,
       "department": department,
       "description": description,

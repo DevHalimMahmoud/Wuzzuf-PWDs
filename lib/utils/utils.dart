@@ -1,25 +1,24 @@
-import 'package:wuzzuf_pwd/models/apiJop.dart';
-import 'package:wuzzuf_pwd/models/firebaseJobModel.dart';
-import 'package:wuzzuf_pwd/service/FirebaseJobService.dart';
+import 'package:wuzzuf_pwd/models/api_jop.dart';
+import 'package:wuzzuf_pwd/models/firebase_job_model.dart';
 
 class Utils {
-  List<JobsResult> convertLitsFireToApi(List<firebaseJobModel> fireList) {
+  List<JobsResult> convertLitsFireToApi(List<FirebaseJobModel> fireList) {
     List<JobsResult> apiList = [];
-    fireList.forEach((element) {
-      apiList.add(new JobsResult(
-          jobId: element.Id,
+    for (var element in fireList) {
+      apiList.add(JobsResult(
+          jobId: element.id,
           title: element.title,
           companyName: element.organization,
           location: element.address,
           description: element.description,
           detectedExtensions: DetectedExtensions(postedAt: "1 day")));
-    });
+    }
     return apiList;
   }
 
-  firebaseJobModel convertObjectApiToFirebase(JobsResult jobsResult) {
-    firebaseJobModel object = new firebaseJobModel(
-        Id: jobsResult.jobId,
+  FirebaseJobModel convertObjectApiToFirebase(JobsResult jobsResult) {
+    FirebaseJobModel object = FirebaseJobModel(
+        id: jobsResult.jobId,
         address: jobsResult.location,
         department: jobsResult.title,
         description: jobsResult.description,
