@@ -38,7 +38,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  final String welcomeText = "We're so happy you're here!";
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +63,10 @@ class _HomeState extends State<Home> {
                     ),
                     Container(
                       padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                      child: Center(
+                      child: const Center(
                         child: Text(
-                          welcomeText,
-                          style: const TextStyle(fontSize: 18),
+                          "We're so happy you're here!",
+                          style: TextStyle(fontSize: 18),
                         ),
                       ),
                     ),

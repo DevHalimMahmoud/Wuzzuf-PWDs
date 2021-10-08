@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wuzzuf_pwd/screens/main_screen.dart';
 import 'package:wuzzuf_pwd/screens/registration_screen.dart';
@@ -147,7 +145,6 @@ class _ScreenContentState extends State<ScreenContent> {
 
   void logIn(String email, String password) async {
     if (email.isNotEmpty && password.isNotEmpty) {
-      String errorMessage;
       try {
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
@@ -171,7 +168,6 @@ class _ScreenContentState extends State<ScreenContent> {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1);
-            errorMessage = "Your email address appears to be malformed.";
             break;
           case "ERROR_WRONG_PASSWORD":
             Fluttertoast.showToast(
@@ -179,7 +175,6 @@ class _ScreenContentState extends State<ScreenContent> {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1);
-            errorMessage = "Your password is wrong.";
             break;
           case "ERROR_USER_NOT_FOUND":
             Fluttertoast.showToast(
@@ -187,7 +182,6 @@ class _ScreenContentState extends State<ScreenContent> {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1);
-            errorMessage = "User with this email doesn't exist.";
             break;
           case "ERROR_USER_DISABLED":
             Fluttertoast.showToast(
@@ -195,7 +189,6 @@ class _ScreenContentState extends State<ScreenContent> {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1);
-            errorMessage = "User with this email has been disabled.";
             break;
           case "ERROR_TOO_MANY_REQUESTS":
             Fluttertoast.showToast(
@@ -203,7 +196,6 @@ class _ScreenContentState extends State<ScreenContent> {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1);
-            errorMessage = "Too many requests. Try again later.";
             break;
           case "ERROR_OPERATION_NOT_ALLOWED":
             Fluttertoast.showToast(
@@ -211,7 +203,6 @@ class _ScreenContentState extends State<ScreenContent> {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1);
-            errorMessage = "Signing in with Email and Password is not enabled.";
             break;
           default:
             Fluttertoast.showToast(
@@ -219,7 +210,6 @@ class _ScreenContentState extends State<ScreenContent> {
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 timeInSecForIosWeb: 1);
-            errorMessage = "An undefined Error happened.";
         }
       }
     } else {

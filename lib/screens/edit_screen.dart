@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wuzzuf_pwd/screens/main_screen.dart';
 import 'package:wuzzuf_pwd/screens/profile_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -374,7 +375,7 @@ class _EditState extends State<Edit> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Profile()),
+                            builder: (context) => const MainScreen()),
                       );
                     },
                     padding: const EdgeInsets.all(10.0),
