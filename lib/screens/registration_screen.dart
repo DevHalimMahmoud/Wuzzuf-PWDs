@@ -30,6 +30,7 @@ class _ReregistrationScreenState extends State<ReregistrationScreen> {
   final TextEditingController _agecontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
   final TextEditingController _phonecontroller = TextEditingController();
+  final TextEditingController _cvcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +86,17 @@ class _ReregistrationScreenState extends State<ReregistrationScreen> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Password',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _cvcontroller,
+                obscureText: false,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'CV Link',
                 ),
               ),
             ),
@@ -226,7 +238,7 @@ class _ReregistrationScreenState extends State<ReregistrationScreen> {
                     elevation: MaterialStateProperty.all(8),
                   ),
                   onPressed: () {
-                    if (Empty()) {
+                    if (empty()) {
                       Fluttertoast.showToast(
                           msg:
                               "Please fill all data and enter correct email and password",
@@ -264,13 +276,14 @@ class _ReregistrationScreenState extends State<ReregistrationScreen> {
     );
   }
 
-  bool Empty() {
-    if (_firstnamecontroller.text.isEmpty &&
-        _lastnamecontroller.text.isEmpty &&
-        _agecontroller.text.isEmpty &&
-        _phonecontroller.text.isEmpty &&
-        disability.isEmpty &&
-        gender.isEmpty) {
+  bool empty() {
+    if (_firstnamecontroller.text.isEmpty ||
+        _lastnamecontroller.text.isEmpty ||
+        _agecontroller.text.isEmpty ||
+        _phonecontroller.text.isEmpty ||
+        disability.isEmpty ||
+        gender.isEmpty ||
+        _cvcontroller.text.isEmpty) {
       return true;
     } else {
       return false;
@@ -307,6 +320,7 @@ class _ReregistrationScreenState extends State<ReregistrationScreen> {
         'phone': _phonecontroller.text.toString(),
         'disability': disability.toString(),
         'gender': gender.toString(),
+        'cv_link': _cvcontroller.text.toString()
       }).whenComplete(() {
         Fluttertoast.showToast(
             msg: "Account Created Please Check your Email",

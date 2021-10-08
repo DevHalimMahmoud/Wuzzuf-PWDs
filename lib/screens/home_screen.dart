@@ -48,37 +48,39 @@ class _HomeState extends State<Home> {
       body: ready
           ? Padding(
               padding: const EdgeInsets.all(8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 
-                  Center(
-                    child: Image.network(
-                        "https://storage.googleapis.com/glaze-ecom.appspot.com/images/D2Tz8-aFi/thumbs/watermark.png"),
-                  ),
-                  Center(
-                    child: Text('Welcome, $userName',
-                        style: const TextStyle(fontSize: 32)),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                    child: Center(
-                      child: Text(
-                        welcomeText,
-                        style: const TextStyle(fontSize: 18),
+                    Center(
+                      child: Image.network(
+                          "https://storage.googleapis.com/glaze-ecom.appspot.com/images/D2Tz8-aFi/thumbs/watermark.png"),
+                    ),
+                    Center(
+                      child: Text('Welcome, $userName',
+                          style: const TextStyle(fontSize: 32)),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                      child: Center(
+                        child: Text(
+                          welcomeText,
+                          style: const TextStyle(fontSize: 18),
+                        ),
                       ),
                     ),
-                  ),
-                  Center(
-                    child: Image.network(
-                        "https://storage.googleapis.com/glaze-ecom.appspot.com/images/dsvImtjXe/thumbs/232.png"),
-                  ),
-                  const Center(
-                    child: Text("Start Searching For Your Dream Job!",
-                        style: TextStyle(fontSize: 20)),
-                  ),
-                ],
+                    Center(
+                      child: Image.network(
+                          "https://storage.googleapis.com/glaze-ecom.appspot.com/images/dsvImtjXe/thumbs/232.png"),
+                    ),
+                    const Center(
+                      child: Text("Start Searching For Your Dream Job!",
+                          style: TextStyle(fontSize: 20)),
+                    ),
+                  ],
+                ),
               ),
             )
           : const Center(child: CircularProgressIndicator()),
