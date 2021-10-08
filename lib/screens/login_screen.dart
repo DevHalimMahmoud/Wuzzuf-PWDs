@@ -147,7 +147,6 @@ class _ScreenContentState extends State<ScreenContent> {
 
   void logIn(String email, String password) async {
     if (email.isNotEmpty && password.isNotEmpty) {
-
       String errorMessage;
       try {
         await FirebaseAuth.instance
